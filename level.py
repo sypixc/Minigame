@@ -1,3 +1,5 @@
+import random
+
 def levOption():
     levOption = input("Pilih level [1-3] : ")
     if levOption == "1":
@@ -8,7 +10,6 @@ def levOption():
         lev3()
 
 def lev1():
-    import random
     while True:
         bentukGoa = '|_|'
         goaKosong = [bentukGoa] * 4
@@ -38,7 +39,6 @@ def lev1():
     print('program selesai!')
 
 def lev2():
-    import random
     while True:
         bentukGoa = '|_|'
         goaKosong = [bentukGoa] * 6
@@ -68,7 +68,6 @@ def lev2():
     print('program selesai!')
 
 def lev3():
-    import random
     while True:
         bentukGoa = '|_|'
         goaKosong = [bentukGoa] * 8
