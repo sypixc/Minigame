@@ -1,3 +1,4 @@
+"""
 import random
 from libs import welcome_message
 
@@ -46,3 +47,4 @@ while True:
         break
     
 print("program selesai!")
+"""
