@@ -42,9 +42,7 @@ def lev1():
 
         
         playAgain = input("\n\napakah ingin lanjut main? [y/n] : ")
-        if playAgain == "y":
-            levOption()
-        else:
+        if playAgain != "y":
             break
 
     print('program selesai!')
@@ -71,9 +69,7 @@ def lev2():
 
         
         playAgain = input("\n\napakah ingin lanjut main? [y/n] : ")
-        if playAgain == 'y':
-            levOption()
-        else:
+        if playAgain != 'y':
             break
 
     print('program selesai!')
@@ -100,9 +96,7 @@ def lev3():
 
         
         playAgain = input("\n\napakah ingin lanjut main? [y/n] : ")
-        if playAgain == 'y':
-            levOption
-        elif playAgain == "n":
+        if playAgain != 'y':
             break
 
     print('program selesai!')
