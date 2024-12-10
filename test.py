@@ -1,6 +1,16 @@
 import random
-from libs import loadUserData, saveUserData
+import json
+import os
 
+def loadUserData(fileName):
+    if os.path.exists(fileName):
+        with open(fileName, 'r') as file:
+            return json.load(file)
+    return{}
+
+def saveUserData(fileName, data):
+    with open(fileName, 'w') as file:
+        json.dump(data, file, indent=4)
 
 def game():
     fileName = "userData.json"
@@ -53,21 +63,22 @@ def game():
             guess = int(input("Menurut kamu goa yang isi di nomor berapa? [1-4] : "))
         print(f"\n {goa}\n")
 
-        if bet <= 50:
+        if bet <= 50 :
             multi = 1.0
         elif bet <= 100 :
             multi = 1.5
-        elif bet <= 200:
+        elif bet <= 200 :
             multi = 2.0
         else:
-            multi = 4.0
-        
+            multi = 3.0
+
+
         if Xpos != guess:
             print("Kamu kalah")
             total -= bet
         else:
             poin = int(bet * multi)
-            print("Selamat kamu benar!!")
+            print(f"Selamat kamu benar!! Kamu mendapat {poin} poin !!")
             total+=poin
         
         if total<=0:
@@ -81,3 +92,4 @@ def game():
         
         userData[userName] = total
         saveUserData(fileName, userData)
+game()
