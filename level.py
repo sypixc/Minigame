@@ -6,7 +6,7 @@ def game():
     fileName = "userData.json"
     userData = loadUserData(fileName)
 
-    print("Selamat datang di Minigame kami!!")
+    print("\nSelamat datang di Minigame kami!!")
     userName = input("Masukkan nama kamu : ").strip()
 
     if userName in userData:
@@ -19,7 +19,7 @@ def game():
     game = "Y"
 
     while (game == "Y" or game == "y"):
-        print (" Anda memiliki : ", total, "Credit")
+        print ("Anda memiliki : ", total, "Credit")
         
         while True:
             bbet=int(input("Mau bet berapa?? (Kelipatan 10) : "))
@@ -48,14 +48,14 @@ def game():
 
         guess = int(input('Menurut kamu goa yang isi di nomor berapa? [1-4] : '))
 
-        while guess > 4:
-            print("Kelebihan bre!!")
+        while guess <1 or guess > 4:
+            print("Salah coy!!")
             guess = int(input("Menurut kamu goa yang isi di nomor berapa? [1-4] : "))
         print(f"\n {goa}\n")
 
         if bet <= 50:
             multi = 1.0
-        elif bet <= 100 :
+        elif bet <= 100:
             multi = 1.5
         elif bet <= 200:
             multi = 2.0

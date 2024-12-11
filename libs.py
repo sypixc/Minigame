@@ -9,12 +9,6 @@ def welcome_message(title):
     print(f"** {title} **")
     print(style)
 
-def profil():
-    print("NO| Nama Anggota       | NIM:     |")
-    print("1 | Yuhansen Yordania  | 15240358 |")
-    print("2 | Ariyo Baskoro      |          |")
-    print("3 | Abyan Anjay Mabar  |          |")
-    print("4 | Hendri Ahmad       | 15240019 |")
 
 def loadUserData(fileName):
     if os.path.exists(fileName):
