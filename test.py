@@ -83,6 +83,8 @@ def game():
         
         if total<=0:
             input("Credit mu abis bre, tekan enter buat keluar")
+            del userData[userName]
+            saveUserData(fileName, userData)
             break
         game = input("Mau Main lagi?? [Y/N] : ").strip().upper()
 
