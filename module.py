@@ -1,4 +1,7 @@
 import random
+import json
+import os
+
 
 def welcome_message(title):
     style = "*" * (len(title) + 6)
@@ -9,19 +12,48 @@ def welcome_message(title):
 
 welcome_message("Selamat datang di game kami!!")
 
-def levOption():
-    levOption = input("Pilih level [1-3] : ")
-    if levOption == "1":
-        lev1()
-    elif levOption =="2":
-        lev2()
-    elif levOption == "3":
-        lev3()
+def loadUserData(fileName):
+    if os.path.exists(fileName):
+        with open(fileName, 'r') as file:
+            return json.load(file)
+    return{}
 
+def saveUserData(fileName, data):
+    with open(fileName, 'w') as file:
+        json.dump(data, file, indent=4)
 
+def game():
+    fileName = "userData.json"
+    userData = loadUserData(fileName)
 
-def lev1():
-    while True:
+    print("Selamat datang di Minigame kami!!")
+    userName = input("Masukkan nama kamu : ").strip()
+
+    if userName in userData:
+        total = userData[userName]
+        print(f"Selamat datang kembali, {userName}! Credit anda : {total}")
+    else:
+        print(f"Profil baru dibuat untuk {userName}!!")
+        total = 120
+
+    game = "Y"
+
+    while (game == "Y" or game == "y"):
+        print (" Anda memiliki : ", total, "Credit")
+        
+        while True:
+            bbet=int(input("Mau bet berapa?? (Kelipatan 10) : "))
+            try:
+                bet = int(bbet)
+                if bet>total:
+                    print("Ga cukup creditnya cuy!!")
+                elif bet % 10 != 0:
+                    print("Harus kelipatan 10!!")
+                else: 
+                    break
+            except ValueError:
+                print("Angka ga valid!!")
+
         bentukGoa = '|_|'
         goaKosong = [bentukGoa] * 4
 
@@ -34,71 +66,42 @@ def lev1():
 
         print(f"\nCoba perhatikan goa ini \n {goaKosong}")
 
-        userOption = int(input('Menurut kamu goa yang isi di nomor berapa? [1-4] : '))
-        if userOption == Xpos:
-            print(f"\n{goa}\n Selamat tebakan kamu benar!!")
+        guess = int(input('Menurut kamu goa yang isi di nomor berapa? [1-4] : '))
+
+        while guess > 4:
+            print("Kelebihan bre!!")
+            guess = int(input("Menurut kamu goa yang isi di nomor berapa? [1-4] : "))
+        print(f"\n {goa}\n")
+
+        if bet <= 50 :
+            multi = 1.0
+        elif bet <= 100 :
+            multi = 1.5
+        elif bet <= 200 :
+            multi = 2.0
         else:
-            print(f'\n{goa}\n Maaf tebakan kamu salah')
+            multi = 3.0
 
-        
-        playAgain = input("\n\napakah ingin lanjut main? [y/n] : ")
-        if playAgain != "y":
-            break
 
-    print('program selesai!')
-
-def lev2():
-    while True:
-        bentukGoa = '|_|'
-        goaKosong = [bentukGoa] * 6
-
-        Xpos = random. randint(1,6)
-        goa = goaKosong.copy()
-        goa[Xpos - 1]= '|H|'
-
-        goaKosong = ' '.join(goaKosong)
-        goa = ' '.join(goa)
-
-        print(f"\nCoba perhatikan goa ini \n {goaKosong}")
-
-        userOption = int(input('Menurut kamu goa yang isi di nomor berapa? [1-6] : '))
-        if userOption == Xpos:
-            print(f"\n{goa}\n Selamat tebakan kamu benar!!")
+        if Xpos != guess:
+            print("Kamu kalah")
+            total -= bet
         else:
-            print(f'\n{goa}\n Maaf tebakan kamu salah')
-
+            poin = int(bet * multi)
+            print(f"Selamat kamu benar!! Kamu mendapat {poin} poin !!")
+            total+=poin
         
-        playAgain = input("\n\napakah ingin lanjut main? [y/n] : ")
-        if playAgain != 'y':
+        if total<=0:
+            input("Credit mu abis bre, tekan enter buat keluar")
+            del userData[userName]
+            saveUserData(fileName, userData)
             break
+        game = input("Mau Main lagi?? [Y/N] : ").strip().upper()
 
-    print('program selesai!')
-
-def lev3():
-    while True:
-        bentukGoa = '|_|'
-        goaKosong = [bentukGoa] * 8
-
-        Xpos = random. randint(1,8)
-        goa = goaKosong.copy()
-        goa[Xpos - 1]= '|H|'
-
-        goaKosong = ' '.join(goaKosong)
-        goa = ' '.join(goa)
-
-        print(f"\nCoba perhatikan goa ini \n {goaKosong}")
-
-        userOption = int(input('Menurut kamu goa yang isi di nomor berapa? [1-8] : '))
-        if userOption == Xpos:
-            print(f"\n{goa}\n Selamat tebakan kamu benar!!")
-        else:
-            print(f'\n{goa}\n Maaf tebakan kamu salah')
-
+        if game=="N":
+            print("Total akhir : ",total, "credit")
+            input("Makasih udah maen :), tekan enter untuk keluar ")
         
-        playAgain = input("\n\napakah ingin lanjut main? [y/n] : ")
-        if playAgain != 'y':
-            break
-
-    print('program selesai!')
-
-levOption()
+        userData[userName] = total
+        saveUserData(fileName, userData)
+game()
